@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,7 +12,7 @@ export class ProductService {
     try {
       const category = await this.prisma.category.findUnique({where: {id: createProductDto.categoryId}});
       if(!category){
-        return {message: 'Category not found'}
+        throw new BadRequestException('Category not found')
       }
       const one = await this.prisma.product.create({data: {
         price: createProductDto.price,
@@ -27,7 +27,7 @@ export class ProductService {
       }});
       return one  
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -80,7 +80,7 @@ export class ProductService {
         include: {Category: true}});
       return one
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -89,7 +89,7 @@ export class ProductService {
       const one = await this.prisma.product.findUnique({where: { id }, include: {Category: true}});
       return one
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -97,13 +97,13 @@ export class ProductService {
     try {
       const one = await this.prisma.product.findFirst({where: { id }});
       if(!one){
-        return { message: 'Product not found' }
+        throw new BadRequestException('Product not found')
       }
 
       const data = await this.prisma.product.update({where: { id }, data: updateProductDto});
       return data
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -112,7 +112,7 @@ export class ProductService {
       const one = await this.prisma.product.delete({where: { id }});
       return one
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 }

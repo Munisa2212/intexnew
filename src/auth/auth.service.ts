@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -14,7 +14,7 @@ export class AuthService {
     try {
       const existingUser = await this.prisma.user.findFirst({where: { email: createAuthDto.email }});
       if (existingUser) {
-        return { message: 'User already exists' };
+        throw new BadRequestException('User already exists');
       }
 
       const hashedPassword = await bcrypt.hash(createAuthDto.password, 10);
@@ -27,7 +27,7 @@ export class AuthService {
 
       return createdUser
     } catch (error) {
-      console.log(error)
+      throw BadRequestException
     }
   }
 
@@ -35,19 +35,19 @@ export class AuthService {
     try {
       const user = await this.prisma.user.findFirst({where: { email: createAuthDto.email }});
       if (!user) {
-        return { message: 'User not found' };
+        throw new BadRequestException('User not found');
       }
 
       const isMatch = await bcrypt.compare(createAuthDto.password, user.password);
       if (!isMatch) {
-        return { message: 'Wrong password' };
+        throw new BadRequestException('Invalid credentials');
       }
 
       const token = await this.jwtService.signAsync({ id: user.id });
 
       return { access_token: token };
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
   async findAll() {
@@ -55,7 +55,7 @@ export class AuthService {
       const users = await this.prisma.user.findMany();
       return users
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -64,7 +64,7 @@ export class AuthService {
       const user = await this.prisma.user.findUnique({where: { id }});
       return user
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -73,7 +73,7 @@ export class AuthService {
       const user = await this.prisma.user.update({where: { id }, data: updateAuthDto});
       return user
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -82,7 +82,7 @@ export class AuthService {
       const user = await this.prisma.user.delete({where: { id }});
       return user
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 }

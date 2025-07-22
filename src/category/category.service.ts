@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Category } from 'generated/prisma';
 
 @Injectable()
 export class CategoryService {
@@ -12,46 +13,47 @@ export class CategoryService {
       const data = await this.prisma.category.create({data: createCategoryDto});
       return data
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
-  async findAll(
-    name?: string,
-    page?: number,
-    limit?: number,
-    sortOrder?: 'asc' | 'desc',
-  ) {
-    try {
-      const take = Number(limit) || 10;
-      const skip = (Number(page) - 1) * take || 0;
-      const query: any = {};
+async findAll(
+  name?: string,
+  page?: number,
+  limit?: number,
+  sortOrder: 'asc' | 'desc' = 'asc',
+): Promise<Category[]> {
+  try {
+    const take = Number(limit) || 10;
+    const skip = page && page > 0 ? (page - 1) * take : 0;
 
-      if (name) {
-        query.name = name;
-      }
-
-      const data = await this.prisma.category.findMany({
-        where: query,
-        take,
-        skip,
-        orderBy: {
-          name: sortOrder,
-        },
-      });
-      
-      return data
-    } catch (error) {
-      console.log(error)
+    const query: any = {};
+    if (name) {
+      query.name = name;
     }
+
+    const data = await this.prisma.category.findMany({
+      where: query,
+      take,
+      skip,
+      orderBy: {
+        name: sortOrder,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    throw new BadRequestException
   }
+}
+
 
   async findOne(id: number) {
     try {
       const data = await this.prisma.category.findUnique({where: { id }});
       return data 
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -60,7 +62,7 @@ export class CategoryService {
       const data = await this.prisma.category.update({where: { id }, data: updateCategoryDto});
       return data
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 
@@ -69,7 +71,7 @@ export class CategoryService {
       const data = await this.prisma.category.delete({where: { id }});
       return data
     } catch (error) {
-      console.log(error)
+      throw new BadRequestException
     }
   }
 }
