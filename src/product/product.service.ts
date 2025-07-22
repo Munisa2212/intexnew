@@ -41,7 +41,6 @@ export class ProductService {
     limit?: number,
     page?: number,
     sortOrder?: 'asc' | 'desc',
-    categoryId?: number
   ) {
     try {
       const take = Number(limit) || 10;
@@ -81,12 +80,6 @@ export class ProductService {
       if (discountPrice) {
         query.discountPrice = {
           contains: +discountPrice,
-          mode: 'insensitive',
-        }
-      }
-      if (categoryId) {
-        query.categoryId = {
-          contains: categoryId,
           mode: 'insensitive',
         }
       }
