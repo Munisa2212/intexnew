@@ -65,3 +65,12 @@ model Order{
   productId     Int     @unique
   product       Product @relation(fields: [productId], references: [id])
 }
+
+model Consultation{
+  id Int @id @default(autoincrement())
+
+  name String @default("name")
+  number String @default("+998888888888")
+  time String @default("12:00")
+  status Boolean @default(false)
+}

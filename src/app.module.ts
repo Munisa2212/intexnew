@@ -10,13 +10,14 @@ import { InfoModule } from './info/info.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MulterController } from './multer/multer.controller';
+import { ConsultationModule } from './consultation/consultation.module';
 
 
 @Module({
   imports: [ PrismaModule, AuthModule, CategoryModule, ProductModule, OrderModule, InfoModule, ServeStaticModule.forRoot({
     rootPath: join(__dirname, '..', 'uploads'),
     serveRoot: '/file'
-  })],
+  }), ConsultationModule],
   controllers: [AppController, MulterController],
   providers: [AppService],
 })

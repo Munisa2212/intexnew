@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Consultation" ALTER COLUMN "name" SET DEFAULT 'name',
+ALTER COLUMN "number" SET DEFAULT '+998888888888',
+ALTER COLUMN "time" SET DEFAULT '12:00',
+ALTER COLUMN "status" SET DEFAULT false;
