@@ -41,6 +41,7 @@ export class ProductService {
     limit?: number,
     page?: number,
     sortOrder?: 'asc' | 'desc',
+    categoryId?: number
   ) {
     try {
       const take = Number(limit) || 10;
@@ -82,6 +83,9 @@ export class ProductService {
           contains: +discountPrice,
           mode: 'insensitive',
         }
+      }
+      if(categoryId){
+        query.categoryId = +categoryId
       }
 
       const one = await this.prisma.product.findMany({

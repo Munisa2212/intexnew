@@ -25,6 +25,7 @@ export class ProductController {
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'sortOrder', required: false, type: String })
+  @ApiQuery({name: "categoryId", required: false, type: Number})
   async findAll(
       @Query('price') price: number,
       @Query('size') size: number,
@@ -35,8 +36,10 @@ export class ProductController {
       @Query('limit') limit: number,
       @Query('page') page: number,
       @Query('sortOrder') sortOrder: 'asc' | 'desc' = 'asc',
+      @Query("categoryId") categoryId: number
+
   ) {
-    return this.productService.findAll(price, size, shape, status, count, discountPrice, limit, page, sortOrder);
+    return this.productService.findAll(price, size, shape, status, count, discountPrice, limit, page, sortOrder, categoryId);
   }
 
   @Get(':id')
