@@ -20,6 +20,12 @@ export class CreateProductDto {
   shape: string;
 
   @ApiProperty({
+    example: 'Rectangle',
+    description: 'Shape of the product in Uzbek (e.g., round, square, rectangle)',
+  })
+  shapeUzb: string;
+
+  @ApiProperty({
     example: 'Available',
     description: 'Current status of the product (e.g., Available, Out of Stock)',
   })

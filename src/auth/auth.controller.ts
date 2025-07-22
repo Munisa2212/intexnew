@@ -8,7 +8,7 @@ import { AuthGuard } from 'src/guards/auth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Post("/add-admin")
   create(@Body() createAuthDto: CreateAuthDto) {
     return this.authService.create(createAuthDto);

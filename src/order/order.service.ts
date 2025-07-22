@@ -10,7 +10,7 @@ export class OrderService {
   constructor(readonly prisma : PrismaService){}
   async create(createOrderDto: CreateOrderDto) {
     try {
-      const data = await this.prisma.order.create({data: createOrderDto});
+      const data = await this.prisma.order.create({data: {...createOrderDto, status: false}});
       await this.prisma.product.update({where: { id: createOrderDto.productId }, data: {count: {decrement: 1}}})
       return data
     } catch (error) {

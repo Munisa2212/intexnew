@@ -16,9 +16,30 @@ export class CategoryService {
     }
   }
 
-  async findAll() {
+  async findAll(
+    name?: string,
+    page?: number,
+    limit?: number,
+    sortOrder?: 'asc' | 'desc',
+  ) {
     try {
-      const data = await this.prisma.category.findMany();
+      const take = Number(limit) || 10;
+      const skip = (Number(page) - 1) * take || 0;
+      const query: any = {};
+
+      if (name) {
+        query.name = name;
+      }
+
+      const data = await this.prisma.category.findMany({
+        where: query,
+        take,
+        skip,
+        orderBy: {
+          name: sortOrder,
+        },
+      });
+      
       return data
     } catch (error) {
       console.log(error)

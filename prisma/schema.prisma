@@ -45,6 +45,7 @@ model Product {
   price Int
   size  Int
   shape String
+  shapeUzb String
   status String
   count Int
   discountPrice Int
@@ -59,6 +60,7 @@ model Order{
   userName String
   userPhone String
   userAddress String
+  status Boolean
 
   productId     Int     @unique
   product       Product @relation(fields: [productId], references: [id])
