@@ -62,13 +62,13 @@ export class ProductService {
       }
       if (shape) {
         query.shape = {
-          contains: +shape,
+          contains: shape,
           mode: 'insensitive',
         };
       }
       if (status) {
         query.status = {
-          contains: +status,
+          contains: status,
           mode: 'insensitive',
         }
       }
@@ -86,7 +86,7 @@ export class ProductService {
       }
       if (categoryId) {
         query.categoryId = {
-          contains: +categoryId,
+          contains: categoryId,
           mode: 'insensitive',
         }
       }
