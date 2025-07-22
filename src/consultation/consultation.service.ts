@@ -31,7 +31,10 @@ export class ConsultationService {
       const query: any = {};
 
       if (name) {
-        query.name = name;
+        query.name = {
+          contains: name,
+          mode: 'insensitive',
+        }
       }
       const data = await this.prisma.consultation.findMany({
         where: query,

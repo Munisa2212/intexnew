@@ -49,25 +49,46 @@ export class ProductService {
       const query: any = {};
 
       if (price) {
-        query.price = +price;
+        query.price = {
+          contains: +price,
+          mode: 'insensitive',
+        };
       }
       if (size) {
-        query.size = +size;
+        query.size = {
+          contains: +size,
+          mode: 'insensitive',
+        };
       }
       if (shape) {
-        query.shape = shape;
+        query.shape = {
+          contains: +shape,
+          mode: 'insensitive',
+        };
       }
       if (status) {
-        query.status = status;
+        query.status = {
+          contains: +status,
+          mode: 'insensitive',
+        }
       }
       if (count) {
-        query.count = +count;
+        query.count = {
+          contains: +count,
+          mode: 'insensitive',
+        }
       }
       if (discountPrice) {
-        query.discountPrice = +discountPrice;
+        query.discountPrice = {
+          contains: +discountPrice,
+          mode: 'insensitive',
+        }
       }
       if (categoryId) {
-        query.categoryId = +categoryId;
+        query.categoryId = {
+          contains: +categoryId,
+          mode: 'insensitive',
+        }
       }
 
       const one = await this.prisma.product.findMany({
