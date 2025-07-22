@@ -9,10 +9,9 @@ import { Request } from 'express';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @UseGuards(AuthGuard)
   @Post()
-  create(@Body() createOrderDto: CreateOrderDto, @Req() req: Request) {
-    return this.orderService.create(createOrderDto, req);
+  create(@Body() createOrderDto: CreateOrderDto) {
+    return this.orderService.create(createOrderDto);
   }
 
   @UseGuards(AuthGuard)

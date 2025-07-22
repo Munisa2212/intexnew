@@ -19,7 +19,6 @@ model User {
   email    String
   password String
 
-  order    Order?
 }
 
 model WebSite {
@@ -60,9 +59,6 @@ model Order{
   userName String
   userPhone String
   userAddress String
-
-  userId      Int    @unique 
-  user        User   @relation(fields: [userId], references: [id])
 
   productId     Int     @unique
   product       Product @relation(fields: [productId], references: [id])

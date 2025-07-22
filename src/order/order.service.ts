@@ -8,10 +8,9 @@ import { Request } from 'express';
 export class OrderService {
 
   constructor(readonly prisma : PrismaService){}
-  async create(createOrderDto: CreateOrderDto, req: Request) {
-    let id = req["user-id"]
+  async create(createOrderDto: CreateOrderDto) {
     try {
-      const data = await this.prisma.order.create({data: {...createOrderDto, userId: id}});
+      const data = await this.prisma.order.create({data: createOrderDto});
       await this.prisma.product.update({where: { id: createOrderDto.productId }, data: {count: {decrement: 1}}})
       return data
     } catch (error) {
