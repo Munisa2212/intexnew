@@ -13,7 +13,7 @@ export class InfoService {
       const data = await this.prisma.webSite.create({data: createInfoDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -22,7 +22,7 @@ export class InfoService {
       const data = await this.prisma.webSite.findMany();
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -31,7 +31,7 @@ export class InfoService {
       const data = await this.prisma.webSite.findUnique({where: { id }});
       return data
     } catch (error) {
-       throw new BadRequestException
+       throw new BadRequestException(error)
     }
   }
 
@@ -40,7 +40,7 @@ export class InfoService {
       const data = await this.prisma.webSite.update({where: { id }, data: updateInfoDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -49,7 +49,7 @@ export class InfoService {
       const data = await this.prisma.webSite.delete({where: { id }});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 }

@@ -13,7 +13,7 @@ export class CategoryService {
       const data = await this.prisma.category.create({data: createCategoryDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -46,7 +46,7 @@ async findAll(
 
     return data;
   } catch (error) {
-    throw new BadRequestException
+    throw new BadRequestException(error);
   }
 }
 
@@ -56,7 +56,7 @@ async findAll(
       const data = await this.prisma.category.findUnique({where: { id }});
       return data 
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -65,7 +65,7 @@ async findAll(
       const data = await this.prisma.category.update({where: { id }, data: updateCategoryDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -74,7 +74,7 @@ async findAll(
       const data = await this.prisma.category.delete({where: { id }});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 }

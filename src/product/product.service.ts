@@ -28,7 +28,7 @@ export class ProductService {
       }});
       return one  
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -99,7 +99,7 @@ export class ProductService {
         include: {Category: true}});
       return one
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -108,7 +108,7 @@ export class ProductService {
       const one = await this.prisma.product.findUnique({where: { id }, include: {Category: true}});
       return one
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -122,7 +122,7 @@ export class ProductService {
       const data = await this.prisma.product.update({where: { id }, data: updateProductDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -131,7 +131,7 @@ export class ProductService {
       const one = await this.prisma.product.delete({where: { id }});
       return one
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 }

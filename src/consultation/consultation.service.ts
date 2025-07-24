@@ -16,7 +16,7 @@ export class ConsultationService {
       const data = await this.prisma.consultation.create({data: {...createConsultationDto, time, status: false}});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -44,7 +44,7 @@ export class ConsultationService {
       return data
     } catch (error) {
       console.log(error)
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -53,7 +53,7 @@ export class ConsultationService {
       const data = await this.prisma.consultation.findUnique({where: { id }});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -62,7 +62,7 @@ export class ConsultationService {
       const data = await this.prisma.consultation.update({where: { id }, data: updateConsultationDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -71,7 +71,7 @@ export class ConsultationService {
       const data = await this.prisma.consultation.delete({where: { id }});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 }
