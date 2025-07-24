@@ -33,6 +33,7 @@ model WebSite {
 model Category {
   id       Int       @id @default(autoincrement())
   name     String
+  nameUz  String @default("asdf")
   products Product[]
 }
 
