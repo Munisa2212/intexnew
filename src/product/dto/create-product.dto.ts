@@ -54,4 +54,12 @@ export class CreateProductDto {
     description: 'Image URL or path for the product',
   })
   image: string;
+
+    @ApiProperty({
+    example: '12',
+    description: 'Depth in sm',
+  })
+  depth: string;
+
+
 }

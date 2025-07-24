@@ -50,6 +50,7 @@ model Product {
   count Int
   discountPrice Int
   image String
+  depth String @default("1")
 
   order         Order?
 }

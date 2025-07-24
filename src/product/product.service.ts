@@ -23,7 +23,8 @@ export class ProductService {
         discountPrice: createProductDto.discountPrice,
         categoryId: createProductDto.categoryId,
         image: createProductDto.image,
-        shapeUzb: createProductDto.shapeUzb
+        shapeUzb: createProductDto.shapeUzb,
+        depth: createProductDto.depth
       }});
       return one  
     } catch (error) {
