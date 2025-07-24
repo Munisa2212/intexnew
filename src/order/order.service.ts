@@ -14,7 +14,7 @@ export class OrderService {
       await this.prisma.product.update({where: { id: createOrderDto.productId }, data: {count: {decrement: 1}}})
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -23,7 +23,7 @@ export class OrderService {
       const data = await this.prisma.order.findMany({include: {product: true}});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -32,7 +32,7 @@ export class OrderService {
       const data = await this.prisma.order.findUnique({where: { id }, include: {product: true}});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -41,7 +41,7 @@ export class OrderService {
       const data = await this.prisma.order.update({where: { id }, data: updateOrderDto});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 
@@ -50,7 +50,7 @@ export class OrderService {
       const data = await this.prisma.order.delete({where: { id }});
       return data
     } catch (error) {
-      throw new BadRequestException
+      throw new BadRequestException(error)
     }
   }
 }
